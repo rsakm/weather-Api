@@ -1,0 +1,4 @@
+
+WEATHER_API_KEY=9a01e6fb169e312c8ed26bd4d729b2aa
+PORT=3000
+NODE_ENV=production
