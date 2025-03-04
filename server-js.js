@@ -100,23 +100,20 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Start server
-const startServer = () => {
-    app.listen(PORT, () => {
-        console.log(`🚀 Server running on port ${PORT}`);
-        console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-    });
-};
+// Store server instance
+const server = app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+});
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
     console.log('SIGTERM signal received: closing HTTP server');
-    app.close(() => {
+
+    server.close(() => {  // ✅ Use `server.close()`, not `app.close()`
         console.log('HTTP server closed');
         process.exit(0);
     });
 });
-
-startServer();
 
 module.exports = app; // For potential testing
